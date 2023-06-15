@@ -1,0 +1,183 @@
+@font-face {
+	font-family: "Grotesk_Bold";
+	src: local("Grotesk_Bold"),
+		url("fonts/Format/Grotesk-04Gras.woff") format("woff"),
+		url("fonts/Format/Grotesk-04Gras.woff2") format("woff2")
+}
+
+html {
+	background-color: #EFEFEF;
+}
+
+body {
+	margin: 0;
+	/* background-color: #EFEFEF; */
+	color: #fff;
+	font-family: 'Grotesk_Bold';
+	font-size: 13px;
+	line-height: 24px;
+	overscroll-behavior: none;
+}
+
+
+
+a {
+	color: #ff0;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+button {
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+#info {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	text-align: center;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	z-index: 1; /* TODO Solve this in HTML */
+}
+
+a, button, input, select {
+	pointer-events: auto;
+}
+
+.lil-gui {
+	z-index: 2 !important; /* TODO Solve this in HTML */
+}
+
+@media all and ( max-width: 640px ) {
+	.lil-gui.root { 
+		right: auto;
+		top: auto;
+		max-height: 50%;
+		max-width: 80%;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+#overlay {
+	position: absolute;
+	font-size: 16px;
+	z-index: 20;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background: rebeccapurple;
+}
+
+
+
+#notSupported {
+	width: 50%;
+	margin: auto;
+	background-color: #f00;
+	margin-top: 20px;
+	padding: 10px;
+}
+
+header {
+	opacity: 1;
+	margin: 0;
+	top:0;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	z-index: 0;
+	pointer-events: none;
+  }
+
+h1{
+	font-family: 'Grotesk_Bold';
+	font-weight: bolder;
+	font-size: 76px;
+	line-height: 0.8em;
+	width: 100%;
+	color: black;
+	text-align: center;
+	animation: txtBlur 10s ease infinite;
+	mix-blend-mode: difference;
+	}
+	
+h2 {
+	font-family: 'Grotesk_Bold', Helvetica, sans-serif;
+	font-size: 48px;
+	font-weight: 100;
+	color: black;
+	animation: txtBlur 15s ease infinite;
+	text-align: center;
+	line-height: 1.6em;
+	mix-blend-mode: difference;
+} 
+
+#webgl {
+	background-color: white;
+}
+	@keyframes txtBlur {
+	  0% {
+		filter: blur(0);
+	  } 
+	  25% {
+		filter: blur(0.5px);
+	  }
+	  50% {
+		filter: blur(0.1px);
+	  }
+	  75% {
+		filter: blur(0.9px);
+	  }
+	  100% {
+		filter: blur(0px);
+	  }
+	}
+	
+	h1:hover, h2:hover {
+	  filter: blur(7px);
+	}
+	
+	
+	@keyframes blur {
+	  0% {
+		filter: blur(1px);
+		opacity: 0.8;
+	   
+	  }
+	  50% {
+		opacity: 0.5;
+		
+	  }
+	  100% {
+		filter: blur(6px);
+		opacity: 0.7;
+		
+	  }
+	}
+
+	@media only screen and (max-width: 600px) {
+		h1 {
+			font-size: 28px;
+		}
+	  }

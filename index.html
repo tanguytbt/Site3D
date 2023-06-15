@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>3D IMAGE ARCHIVE - TEMPLATE</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="application-name" content="MyApp" />
+    <meta name="apple-mobile-web-app-title" content="MyApp" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="icon" type="image/x-icon" href="img/favicon.svg"/>
+    <link type="text/css" rel="stylesheet" href="main.css" />
+    <style>
+      body {
+        background-color: #ffffff;
+        color: #000;
+        margin: 0;
+        top: 0;
+      }
+
+      section {
+        background-color: #ffffff;
+        width: 100vw;
+        height: 100vh;
+        animation: fade 5s 7s ease-in-out forwards;
+        animation-iteration-count: 1;
+        position: fixed;
+        z-index: 100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: none;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+
+      p.loading {
+        width: 80px;
+        font-weight: bold;
+        position: fixed;
+        animation: blink 3s infinite ease-in-out;
+      }
+
+      @keyframes blink {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      a {
+        color: #fff;
+      }
+
+      * { user-select: none;}
+
+      
+      header {
+        display: block;
+        position: fixed;
+        opacity: 0.75;
+        top: 20px;
+        left: 20px;
+        width: 60px;
+       
+        cursor: pointer;
+      }
+
+      header:hover {
+        opacity: 1;
+        
+      }
+
+      header.img {
+        width: 100%;
+      }
+
+      #overlay {
+        position: fixed;
+		z-index: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255);
+        display: none;
+		overflow-y: scroll;
+      }
+
+      .overlay-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+		width: 80%;
+		height: 100%;
+        color: #000;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-direction: column;
+		
+		
+      }
+
+      .visible {
+        animation: fadeIn 0.5s;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./build/three.module.js",
+          "three/addons/": "./jsm/",
+          "data/addons/": "./data/"
+        }
+      }
+    </script>
+    
+    <header><a onclick="toggleOverlay()"><img src="img/logo.svg" style="user-select: none;"/></a></header>
+
+    <div id="overlay" class="overlay hidden">
+		<a href="" onclick="toggleOverlay()"><img src="img/close.svg" style="width: 30px; position: fixed; top: 30px; left: 30px; z-index: 50;"/></a>
+
+      <div class="overlay-content">
+
+
+		<h2>TITLE OF THE WEBSITE</h2>
+
+		<p style="font-size:18px;">
+			Pan and zoom infinitely in all directions<br>
+			Image’s credits open and close with a click<br>
+			Move images and credits around by holding it with one finger<br><br>
+			The experience is optimized for tactile screens (tablets, smartphones) using Firefox or Chrome<br>
+			To navigate on a computer, use CTRL + click and zoom<br><br>
+			<!-- <i>(La navigation est optimisée pour une experience sur smartphone ou sur tablette.<br> Vous pouvez cependant l'explorer sur ordinateur en utilisant les touches CTRL et le pad)
+			</i> -->
+		</p>
+
+    <article id="credits" style="font-size: 12px;  ">
+      <h4>conceptual artist: Marion Tampon-Lajarriette
+      <br>technical artist: Chloé Michel
+      <br>font: Moglia & Adebiaye
+      <br>icon: David García
+  
+      <br>Thanks to all contributing artists
+      <br><br>With the support of Covid-culture research grants of
+      the city and canton of Geneva 2021-2022
+      </h4>
+       </article>
+
+       
+      </div>
+    </div>
+
+    <section><p class="loading">Loading</p></section>
+
+    <div id="css"></div>
+    <div id="webgl"></div>
+
+	<script>
+		const overlay = document.getElementById('overlay');
+
+		function toggleOverlay() {
+			if (overlay.classList.contains('hidden')) {
+				overlay.classList.replace('hidden', 'visible');
+				
+				overlay.style.display = 'block';
+				
+				
+			
+			} else if(overlay.classList.contains('visible')) {
+				overlay.classList.replace('visible', 'hidden');
+				overlay.style.display = 'none'; 
+				
+	
+			}
+      event.preventDefault();
+		}
+
+	</script>
+
+    <!-- Import maps polyfill -->
+    <!-- Remove this when import maps will be widely supported -->
+
+
+    <script type="vertex" id="vertexShader">
+
+      varying vec2 vUv;
+    
+
+      void main() {
+      	vUv = uv;
+
+      	vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
+      	gl_Position = projectionMatrix * modelViewPosition;
+      }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+      uniform sampler2D texture1;
+      uniform vec2 u_mouse;
+      uniform vec2 u_res;
+
+      varying vec2 vUv;
+
+    
+
+      void main() {
+      	vec4 color1 = texture2D(texture1, vUv);
+      	//gl_FragColor = mix(color1, vec4(1.0, 1.0, 1.0, 1.0), vUv.y);
+      	gl_FragColor = color1;
+      	//gl_FragColor = ( texture2D( texture1, vUv ) );
+
+      }
+    </script>
+    
+    <script type="module" src="utils.js"></script>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
