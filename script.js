@@ -27,8 +27,6 @@ let deltaY = 0
 let deltaZ = 0
 let clock = new THREE.Clock()
 
-let afterimagePass
-
 let dataArr
 let objects = []
 let items = []
@@ -56,7 +54,7 @@ getData()
 
 async function getData () {
   dataArr = await GetData()
-  //console.log(dataArr)
+  // console.log(dataArr)
   setTimeout(() => {
     if (dataArr.length > 0) {
       init()
@@ -145,9 +143,10 @@ function init () {
   // event listeners
   window.addEventListener('resize', onWindowResize(camera, renderer, composer))
   document.addEventListener('mousemove', onDocumentMouseMove, false);
-
   document.addEventListener('click', onClick)
 }
+
+
 function onDocumentMouseMove(event) {
   // Update the mouse position relative to the canvas
   event.preventDefault();
