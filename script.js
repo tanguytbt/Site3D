@@ -27,7 +27,12 @@ let deltaY = 0
 let deltaZ = 0
 let clock = new THREE.Clock()
 
-let dataArr
+let dataArr, cat
+let cat1 = "2312"
+
+let catPos = [2000, 1000]
+
+let cat2 = "2313"
 let objects = []
 let items = []
 let textCredit = []
@@ -54,7 +59,7 @@ getData()
 
 async function getData () {
   dataArr = await GetData()
-  // console.log(dataArr)
+  console.log(dataArr)
   setTimeout(() => {
     if (dataArr.length > 0) {
       init()
@@ -96,7 +101,7 @@ function getDevice () {
 function init () {
   const aspect = window.innerWidth / window.innerHeight
 
-  camera = new THREE.PerspectiveCamera(60, aspect, 1, 4000)
+  camera = new THREE.PerspectiveCamera(60, aspect, 150, 4000)
   camera.position.z = 4000
 
   scene = new THREE.Scene()
@@ -125,16 +130,16 @@ function init () {
   composer.addPass(new RenderPass(scene, camera))
 
   
-  const message1 = [
-    ['3D Image Archive', title1],
-    ['Template', title2],
-    ['HEAD — Pool Numérique, 2023', title3]
-  ]
+    //const message1 = [
+      //['3D Image Archive', title1],
+      //['Template', title2],
+      //['HEAD — Pool Numérique, 2023', title3]
+   // ]
 
-  setTimeout(() => {
-    let message = message1
-    loadTitle(camera, message)
-  }, 10000)
+  // setTimeout(() => {
+  //   let message = message1
+  //   loadTitle(camera, message)
+  // }, 10000)
 
   // launch functions
 
@@ -166,185 +171,203 @@ function onWindowResize(camera, renderer, composer) {
   // controls.handleResize();
 }
 
-function loadTitle (camera, message) {
-  const loader = new FontLoader()
-  loader.load('fonts/Grotesk/Grotesk03_Bold.json', function (font) {
-    for (let i = 0; i < message.length; i++) {
-      const geometry = new TextGeometry(message[i][0], {
-        font: font,
-        size: message[i][1],
-        height: 0,
-        curveSegments: 12,
-        bevelEnabled: false,
-        bevelThickness: 0,
-        bevelSize: 0,
-        bevelOffset: 0,
-        bevelSegments: 0
-      })
-      const material = new THREE.MeshBasicMaterial({ color: 0x000000 })
-      const text = new THREE.Mesh(geometry, material)
+// function loadTitle (camera, message) {
+//   const loader = new FontLoader()
+//   loader.load('fonts/Grotesk/Grotesk03_Bold.json', function (font) {
+//     for (let i = 0; i < message.length; i++) {
+//       const geometry = new TextGeometry(message[i][0], {
+//         font: font,
+//         size: message[i][1],
+//         height: 0,
+//         curveSegments: 12,
+//         bevelEnabled: false,
+//         bevelThickness: 0,
+//         bevelSize: 0,
+//         bevelOffset: 0,
+//         bevelSegments: 0
+//       })
+//       const material = new THREE.MeshBasicMaterial({ color: 0x000000 })
+//       const text = new THREE.Mesh(geometry, material)
 
-      geometry.computeBoundingBox()
-      const xMid =
-        -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x)
-      const yMid =
-        0.5 * (geometry.boundingBox.max.y - geometry.boundingBox.min.y)
-      geometry.translate(xMid, -30 * i + 30, -200)
+//       geometry.computeBoundingBox()
+//       const xMid =
+//         -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x)
+//       const yMid =
+//         0.5 * (geometry.boundingBox.max.y - geometry.boundingBox.min.y)
+//       geometry.translate(xMid, -30 * i + 30, -200)
 
-      camera.add(text)
+//       camera.add(text)
 
-      text.renderOrder = 999
-      text.material.depthTest = true
-      text.material.depthWrite = true
-      text.isMesh = true
-      setTimeout(() => {
-        text.isMesh = false
-      }, 7000)
-    }
-  }) //end load function
-}
+//       text.renderOrder = 999
+//       text.material.depthTest = true
+//       text.material.depthWrite = true
+//       text.isMesh = true
+//       setTimeout(() => {
+//         text.isMesh = false
+//       }, 7000)
+//     }
+//   }) //end load function
+// }
 
 // load and display data
 
 function addInstancedMesh (scene, dataArr) {
   for (let i = 1; i < dataArr.length; i++) {
-    const texture = new TextureLoader()
-    /////// DISPLAY IMAGE
-    texture.load(dataArr[i][0], function (texture) {
-      const geometry = new THREE.PlaneGeometry(
-        texture.image.width,
-        texture.image.height,
-        30,
-        30
-      )
-      const uniforms = { texture1: { value: texture } }
-      //const material = new MeshBasicMaterial({map: texture})
-      const material = new THREE.ShaderMaterial({
-        uniforms: uniforms,
-        vertexShader: document.getElementById('vertexShader').textContent,
-        fragmentShader: document.getElementById('fragmentShader').textContent,
-        wireframe: false,
-        depthWrite: true,
-        depthTest: true,
-        transparent: true,
-        opacity: 1
-      })
-
-      geometry.computeBoundingBox()
-      geometry.needsUpdate = true
-      const mesh = new THREE.Mesh(geometry, material)
-
-      mesh.position.x = (Math.random() - 0.5) * window.innerWidth * initialWidth
-      mesh.position.y =
-        (Math.random() - 0.5) * window.innerHeight * initialWidth
-      mesh.position.z = 1000 + (Math.random() - 0.5) * initialDepth
-      mesh.scale.x = mesh.scale.y = 0.5
-
-      /////// ADD CREDITS
-      const font = new FontLoader()
-
-      font.load('fonts/Grotesk/Grotesk03_Bold.json', function (font) {
-        let credits
-
-        if (dataArr[i][4] === 'undefined') {
-          dataArr[i][4] = ''
-        }
-
-        if (dataArr[i][2].length < 2) {
-          credits =
-            dataArr[i][1] + ' \n' + dataArr[i][3] + ' \n' + dataArr[i][4]
-          console.log('wo')
-        } else if (dataArr[i][2].length <= 2 && dataArr[i][1].length <= 2) {
-          credits = dataArr[i][3] + dataArr[i][4]
-          console.log('w')
-        } else {
-          credits =
-            dataArr[i][2] +
-            '\n' +
-            dataArr[i][1] +
-            ' \n' +
-            dataArr[i][3] +
-            ' \n' +
-            dataArr[i][4]
-        }
-        console.log(credits)
-
-
-        const geometry = new TextGeometry(credits, {
-          font: font,
-          size: credit1,
-          height: 1,
-          curveSegments: 12,
-          bevelEnabled: false,
-          bevelThickness: 0,
-          bevelSize: 0,
-          bevelOffset: 0,
-          bevelSegments: 0
-        })
-        const material = new THREE.MeshBasicMaterial({ color: 0x000000 })
-        const fontMesh = new THREE.Mesh(geometry, material)
-    
-        geometry.computeBoundingBox()
-
-        const bgGeometry = new THREE.PlaneGeometry(
-          geometry.boundingBox.max.x - geometry.boundingBox.min.x + 100,
-          geometry.boundingBox.max.y - geometry.boundingBox.min.y + 100,
+      const texture = new TextureLoader()
+      /////// DISPLAY IMAGE
+      texture.load(dataArr[i][0], function (texture) {
+        const geometry = new THREE.PlaneGeometry(
+          texture.image.width,
+          texture.image.height,
           30,
           30
         )
-        const bgMaterial = new THREE.MeshBasicMaterial({ color: 0xfafafa, depthWrite: true, depthTest: true })
-        const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial)
-        bgGeometry.computeBoundingBox()
+        const uniforms = { texture1: { value: texture } }
+        //const material = new MeshBasicMaterial({map: texture})
+        const material = new THREE.ShaderMaterial({
+          uniforms: uniforms,
+          vertexShader: document.getElementById('vertexShader').textContent,
+          fragmentShader: document.getElementById('fragmentShader').textContent,
+          wireframe: false,
+          depthWrite: true,
+          depthTest: true,
+          transparent: true,
+          opacity: 1
+        })
 
-        const xMid =
-          -0.5 *
-          (bgMesh.geometry.boundingBox.max.x -
-            bgMesh.geometry.boundingBox.min.x)
-        const yMid =
-          0.5 *
-          (bgMesh.geometry.boundingBox.max.y -
-            bgMesh.geometry.boundingBox.min.y)
+        geometry.computeBoundingBox()
+        geometry.needsUpdate = true
+        const mesh = new THREE.Mesh(geometry, material)
 
-        // position bgMesh so it is always centered with the bottom right corner of mesh
-        const meshSize = new THREE.Vector3()
+        mesh.position.x = (Math.random() - 0.5) * window.innerWidth * initialWidth
+        mesh.position.y =
+          (Math.random() - 0.5) * window.innerHeight * initialWidth
+        
+        if(dataArr[i][2] == cat1) {  
+          mesh.position.z = catPos[0] + Math.random() * 1000
+          console.log('cat 1 : ' + mesh.position.z)
+          mesh.name = cat1
+        } else if (dataArr[i][2] == cat2) {
+          mesh.position.z = catPos[1] * + Math.random() * 1000
+          mesh.name = cat2
+        } else {
+          mesh.position.z = 8000
+          //mesh.name = cat...
+        }
 
-        mesh.geometry.computeBoundingBox()
-        mesh.geometry.boundingBox.getSize(meshSize)
+        mesh.scale.x = mesh.scale.y = 0.5
 
-        const meshBottomRight = new THREE.Vector3().copy(mesh.position)
-        meshBottomRight.x = meshSize.x / 2
-        meshBottomRight.y = meshSize.y / 2
+        /////// ADD CREDITS
+        const font = new FontLoader()
 
-        bgMesh.position.copy(meshBottomRight)
+        font.load('fonts/Grotesk/Grotesk03_Bold.json', function (font) {
+          let credits
 
-        bgMesh.position.x = mesh.geometry.parameters.width / 2
-        bgMesh.position.y = -mesh.geometry.parameters.height / 2 
-        bgMesh.position.z = 60
+          credits = dataArr[i][2];
 
-        fontMesh.position.set(xMid + 40, yMid - 60, 2)
+          // if (dataArr[i][4] === 'undefined') {
+          //   dataArr[i][4] = ''
+          // }
 
-        fontMesh.isMesh = false
-        bgMesh.isMesh = false
+          // if (dataArr[i][2].length < 2) {
+          //   credits =
+          //     dataArr[i][1] + ' \n' + dataArr[i][3] + ' \n' + dataArr[i][4]
+          //   console.log('wo')
+          // } else if (dataArr[i][2].length <= 2 && dataArr[i][1].length <= 2) {
+          //   credits = dataArr[i][3] + dataArr[i][4]
+          //   console.log('w')
+          // } else {
+          //   credits =
+          //     dataArr[i][2] +
+          //     '\n' +
+          //     dataArr[i][1] +
+          //     ' \n' +
+          //     dataArr[i][3] +
+          //     ' \n' +
+          //     dataArr[i][4]
+          // }
+          console.log(credits)
 
-        bgMesh.add(fontMesh)
-        mesh.name = bgMesh.name = 'data[' + i + ']'
 
-        textCredit.push(bgMesh)
+          const txtGeometry = new TextGeometry(credits, {
+            font: font,
+            size: credit1,
+            height: 1,
+            curveSegments: 12,
+            bevelEnabled: false,
+            bevelThickness: 0,
+            bevelSize: 0,
+            bevelOffset: 0,
+            bevelSegments: 0
+          })
+          const material = new THREE.MeshBasicMaterial({ color: 0x000000 })
+          const fontMesh = new THREE.Mesh(txtGeometry, material)
+      
+          txtGeometry.computeBoundingBox()
+
+          const bgGeometry = new THREE.PlaneGeometry(
+            geometry.boundingBox.max.x - geometry.boundingBox.min.x,
+            geometry.boundingBox.max.y - geometry.boundingBox.min.y,
+            1,
+            30
+          )
+          const bgMaterial = new THREE.MeshBasicMaterial({ color: 0xfafafa, transparent: true, depthWrite: true, depthTest: true })
+          const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial)
+          bgGeometry.computeBoundingBox()
+
+          const xMid =
+            -0.5 *
+            (bgMesh.geometry.boundingBox.max.x -
+              bgMesh.geometry.boundingBox.min.x)
+          const yMid =
+            0.5 *
+            (bgMesh.geometry.boundingBox.max.y -
+              bgMesh.geometry.boundingBox.min.y)
+
+          // position bgMesh so it is always centered with the bottom right corner of mesh
+          const meshSize = new THREE.Vector3()
+
+          mesh.geometry.computeBoundingBox()
+          mesh.geometry.boundingBox.getSize(meshSize)
+
+          const meshBottomRight = new THREE.Vector3().copy(mesh.position)
+          meshBottomRight.x = meshSize.x / 2
+          meshBottomRight.y = meshSize.y / 2
+
+          bgMesh.position.copy(meshBottomRight)
+
+          // bgMesh.position.x = mesh.geometry.parameters.width / 2
+          // bgMesh.position.y = -mesh.geometry.parameters.height / 2 
+          bgMesh.position.x = 0
+          bgMesh.position.y = 0 
+          bgMesh.position.z = 1
+          
+          bgMesh.material.opacity = 0.7;
+
+          fontMesh.position.set(xMid + 40, yMid - 60, 2)
+
+          fontMesh.isMesh = false
+          bgMesh.isMesh = false
+
+          bgMesh.add(fontMesh)
+          // mesh.name = bgMesh.name = 'data[' + i + ']'
+
+          textCredit.push(bgMesh)
 
 
-        mesh.renderOrder = 1
-        bgMesh.renderOrder = 5
-        bgMesh.layers.enable(1)
-        mesh.layers.enable(1)
+          mesh.renderOrder = 1
+          bgMesh.renderOrder = 5
+          bgMesh.layers.enable(2)
+          mesh.layers.enable(1)
 
-        mesh.add(bgMesh)
+          mesh.add(bgMesh)
 
-        objects.push([mesh, bgMesh])
-        items.push(mesh)
+          objects.push([mesh, bgMesh])
+          items.push(mesh)
 
-        scene.add(mesh)
+          scene.add(mesh)
+        })
       })
-    })
   }
 
   // drag controls
@@ -432,48 +455,51 @@ function checkCameraPos () {
   prevCameraY = camera.position.y
   prevCameraZ = camera.position.z
 
-  if (Math.abs(deltaX) > window.innerWidth) {
-    addObjects()
-    deltaX = 0
-  }
-  if (Math.abs(deltaY) > window.innerHeight * 1.5) {
-    addObjects()
-    deltaY = 0
-  }
-  if (Math.abs(deltaZ) > 5000) {
-    addObjects()
-    deltaZ = 0
-  }
+  // if (Math.abs(deltaX) > window.innerWidth) {
+  //   addInstancedMesh(scene, dataArr)
+  //   deltaX = 0
+  // }
+  // if (Math.abs(deltaY) > window.innerHeight * 1.5) {
+  //   addInstancedMesh(scene, dataArr)
+  //   deltaY = 0
+  // }
+  // if (deltaZ > 1000) {
+  //   addInstancedMesh(scene, dataArr, cat2)
+  //   deltaZ = 0
+  // }
 }
 
 const frustum = new THREE.Frustum()
 const cameraViewProjectionMatrix = new THREE.Matrix4()
 
-// clone the objects and add them to the scene
-function addObjects () {
-  for (var i = 0; i < 15; i++) {
-    const randomObj = Math.floor(Math.random() * objects.length)
-    var clonedObject = objects[randomObj][0].clone()
-    scene.add(clonedObject)
+// // clone the objects and add them to the scene
+// function addObjects () {
+//   for (var i = 0; i < 15; i++) {
+//     if(catPos[0] < camera.position.z < catPos[0] + 1000) {
 
-    clonedObject.position.set(
-      camera.position.x + (Math.random() - 0.5) * window.innerWidth * 6,
-      camera.position.y + (Math.random() - 0.5) * window.innerHeight * 2,
-      camera.position.z + (Math.random() - 0.5) * 10000
-    )
-    clonedObject.children[0].isMesh = false
-    clonedObject.children[0].children[0].isMesh = false
-    items.push(clonedObject)
-    clonedObject.name = 'clonedData['
-    const index = items.indexOf(clonedObject)
-    objects.push([clonedObject, clonedObject.children[0]])
+//       const randomObj = Math.floor(Math.random() * objects.length)
+//       var clonedObject = objects[randomObj][0].clone()
+//       scene.add(clonedObject)
 
-    //set the name of the cloned object and its text to clonedData[index]
-    clonedObject.name = 'clonedData[' + index + ']'
-    clonedObject.children[0].name = 'clonedData[' + index + ']'
-    textCredit.push(clonedObject.children[0])
-  }
-}
+//       clonedObject.position.set(
+//         camera.position.x + (Math.random() - 0.5) * window.innerWidth * 6,
+//         camera.position.y + (Math.random() - 0.5) * window.innerHeight * 2,
+//         camera.position.z + (Math.random() - 0.5) * 10000
+//       )
+//       clonedObject.children[0].isMesh = false
+//       clonedObject.children[0].children[0].isMesh = false
+//       items.push(clonedObject)
+//       clonedObject.name = 'clonedData['
+//       const index = items.indexOf(clonedObject)
+//       objects.push([clonedObject, clonedObject.children[0]])
+
+//       //set the name of the cloned object and its text to clonedData[index]
+//       clonedObject.name = 'clonedData[' + index + ']'
+//       clonedObject.children[0].name = 'clonedData[' + index + ']'
+//       textCredit.push(clonedObject.children[0])
+//     }
+//   }
+// }
 
 function updateFrustumCulling () {
   cameraViewProjectionMatrix.multiplyMatrices(

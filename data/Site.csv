@@ -9,13 +9,7 @@
 ;AutocollantJauneSature.png;Signes;2312;
 ;Bleu.jpg;Refs;2312;
 ;Plaque.jpeg;Voitures;2312;
-;Panneau.MP4;Signalisation;2312;Vdo
 ;Fond.jpg;Visuels;2312;
-;Ferrari.mp4;Voitures;2312;Vdo
-;VoitureTourne.mp4;Voitures;2312;Vdo
-;VoitureClignote.mp4;Voitures;2312;Vdo
-;Autocollant.mp4;Signes;2312;Vdo
-;EspaceVirtuel.mp4;Projets;2312;Vdo
 ;Techniques.jpeg;Projets;2312;
 ;Scotch.jpeg;Signes;2312;
 ;Stylo.jpeg;Perso;2312;
@@ -24,7 +18,6 @@
 ;BureauSketch.jpeg;Perso;2312;
 ;ScotchCarre.png;Signes;2312;
 ;Normographe.jpeg;Perso, Signes;2312;
-;ScanNormo.mov;Perso;2312;Vdo
 ;Autocollant.png;Signes;2312;
 ;AutocollantJaune.png;Signes;2312;
 ;Normographe.png;Perso, Signes;2312;
@@ -33,22 +26,16 @@
 ;PapierRose.jpeg;Perso;2312;
 ;PapierSeul.jpeg;Perso;2312;
 ;PapierTous.jpeg;Perso;2312;
-;ScanCrayons.mov;Perso;2312;Vdo
 ;StyloTous.jpeg;Perso;2312;
-;ScanCrayon.mov;Perso;2312;Vdo
 ;StyloSeul.jpeg;Perso;2312;
 ;StyloZoom.jpeg;Perso;2312;
-;ScanVoitureDouble.mov;Voitures;2312;Vdo
 ;SaabHaut.jpeg;Voitures;2312;
 ;SaabCote.jpeg;Voitures;2312;
 ;SaabFace.jpeg;Voitures;2312;
 ;SaabArriere.jpeg;Voitures;2312;
-;ScanVoitureAR.mov;Voitures;2312;Vdo
-;Regle.mp4;Perso;2312;Vdo
 ;Bureau.jpeg;Perso;2312;
 ;Maison.jpeg;Projets;2312;
 ;Pull.jpg;Perso;2313;
-;ScanPerso.mov;Perso;2313;Vdo
 ;BroderieLigne.png;Perso;2313;
 ;BroderieRond.png;Perso;2313;
 ;Rap.png;Projets;2313;
@@ -60,7 +47,6 @@
 ;Typo2.png;Perso;2313;
 ;Typo.png;Perso;2313;
 ;PalaisFacteurCheval.jpg;Refs;2313;
-;Espace3D.mp4;Projets;2313;Vdo
 ;Addpmp.png;Refs;2313;
 ;PhilippeWeisbecker2.jpg;Refs;2313;
 ;PhilippeWeisbecker1.jpeg;Refs;2313;
@@ -87,14 +73,12 @@
 ;VoitureIndesign2.png;Voitures;2314;
 ;VoitureIndesign3.png;Voitures;2314;
 ;SLC1.png;Voitures;2314;
-;VoitureIllus.mov;Voitures;2314;Vdo
 ;Tablette.png;Projets;2314;
 ;ScanHabit.png;Projets;2314;
 ;M.jpeg;Perso;2314;
 ;R.jpeg;Perso;2314;
 ;ScanOrdiNB.jpeg;Visuels;2314;
 ;ScanOrdiCouleur.png;Visuels;2314;
-;ScanFleur.mov;Fleurs;2314;Vdo
 ;ScanFleur.jpeg;Fleurs;2314;
 ;ScanFleurSature.jpeg;Fleurs;2314;
 ;FLeurBleue.jpeg;Fleurs;2314;
@@ -110,9 +94,6 @@
 ;Archive1.jpeg;Archive;2315;
 ;Archive2.jpeg;Archive;2315;
 ;Panneau.jpeg;Signalisation;2315;
-;ScanArchive1.mov;Archive;2315;Vdo
-;ScanArchive2.mov;Archive;2315;Vdo
-;ScanArchive3.mov;Archive;2315;Vdo
 ;Boucle1.jpeg;Contenant;2315;
 ;ContenantHaut.jpeg;Contenant;2315;
 ;ContenantBas.jpeg;Contenant;2315;
@@ -174,7 +155,6 @@
 ;ArchiveAcetone2.png;Archive, Acetone;2315;
 ;PanneauTissu1.jpeg;Signalisation, Acetone;2315;
 ;PanneauTissu2.jpeg;Signalisation, Acetone;2315;
-;zaza.mp4;Signes;2316;Vdo
 ;SLC141.jpeg;Voitures;2316;
 ;SLC142.jpeg;Voitures;2316;
 ;SLC151.jpeg;Voitures;2316;
@@ -221,7 +201,6 @@
 ;Pneus.jpeg;Pneus;2319;
 ;Vis.JPG;Outils;2319;
 ;Roue2.JPG;Pneus;2319;
-;VideoPneu.mov;Pneus;2319;Vdo
 ;Moto5.jpeg;Projets;2319;
 ;Moto1.jpeg;Projets;2319;
 ;Moto2.jpeg;Projets;2319;
@@ -254,5 +233,3 @@
 ;PneuBlender.png;Pneus;2322;
 ;TuyauSeul.png;Tuyaux;2322;
 ;TuyauxTous.png;Tuyaux;2322;
-;Logo.mov;Voitures, Signes;2322;Vdo
-;Planete.mp4;Visuels;2323;Vdo
